@@ -1,0 +1,16 @@
+.idea
+
+.DS_Store
+*.swp
+*.~*
+
+/RUNNING_PID
+/logs/
+/project/*-shim.sbt
+/project/project/
+/project/target/
+/target/
+/lib_managed
+
+/src/main/resources/local.conf
+
