@@ -7,14 +7,16 @@ import org.specs2.mutable.Specification
 
 class SlackInitializerTest extends Specification {
 
-  private val scraper = new QuestionScraper(QuizUrls.getUrl(2016).get, 2016)
+  private val year = 2016
+
+  private val scraper = new QuestionScraper(QuizUrls.getUrl(year).get, year)
   private val questionPublisher = new QuestionPublisher(token)
 
   val initializer = new SlackInitializer(scraper, questionPublisher)
 
   "Initializing Slack with questions" should {
     "do something sensible" in {
-      initializer.initialize()
+      initializer.initialize(year)
       ok
     }
   }
