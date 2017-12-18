@@ -9,8 +9,8 @@ import net.surguy.kingwilliams.scraper.QuestionScraper
   */
 class SlackInitializer(scraper: QuestionScraper, questionPublisher: QuestionPublisher) {
 
-  def initialize(year: Int) = {
-    questionPublisher.publishQuestions(year, scraper.retrieveCategories())
+  def initialize() = {
+    questionPublisher.publishQuestions(scraper.retrieveCategories())
   }
 
 }

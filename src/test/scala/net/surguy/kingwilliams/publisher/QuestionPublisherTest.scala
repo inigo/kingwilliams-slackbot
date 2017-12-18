@@ -9,11 +9,11 @@ class QuestionPublisherTest extends Specification {
 
   "creating content in Slack" should {
     "not fail when doing nothing" in {
-      publisher.publishQuestions(2000, Seq())
+      publisher.publishQuestions(Seq())
       ok
     }
     "create channels and questions" in {
-      publisher.publishQuestions(2000, Seq(Category(1, 2000, "Who in 2000:", List(Question(1, "Ate some cheese?"), Question(2, "Liked pie?")))))
+      publisher.publishQuestions(Seq(Category(1, 2000, "Who in 2000:", List(Question(1, "Ate some cheese?"), Question(2, "Liked pie?")))))
       ok
     }
   }
