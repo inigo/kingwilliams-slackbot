@@ -29,14 +29,15 @@ class QuestionPublisher(token: String) {
     val channelOpt = client.listChannels().find(_.name == channelName)
     channelOpt match {
       case Some(channel) =>
-        val purpose = (cat.number + " " + cat.preface).trim
-        println("Setting channel topic to "+purpose)
+        val topic = (cat.number + " " + cat.preface).trim
+        println("Setting channel topic to "+topic)
         channel.topic match {
-          case Some(v) if v.value==purpose =>
+          case Some(v) if v.value==topic =>
             println("Channel topic already correct")
             None
           case _ =>
-            client.setChannelTopic(channel.id, purpose)
+            client.setChannelTopic(channel.id, topic)
+            client.postChatMessage(channel.id, s"-----\n*Section ${cat.number})* ${cat.preface}\n-----", username = Some("kingwilliamsquiz"))
             Some(channel)
         }
       case None =>
