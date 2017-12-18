@@ -18,4 +18,9 @@ class QuestionPublisherTest extends Specification {
     }
   }
 
+  "channel names" should {
+    "include the year and number" in { publisher.toChannelName(Category(3, 2000, "xxx", List())) mustEqual "2000__3" }
+    "have the number right aligned" in { publisher.toChannelName(Category(11, 2000, "xxx", List())) mustEqual "2000_11" }
+  }
+
 }
