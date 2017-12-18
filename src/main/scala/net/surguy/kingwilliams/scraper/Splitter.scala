@@ -1,7 +1,5 @@
 package net.surguy.kingwilliams.scraper
 
-import scala.collection.mutable.ListBuffer
-
 /**
   * Utility to support splitting lists into multiple lists based on a predicate, while maintaining ordering.
   */
@@ -14,19 +12,15 @@ object Splitter {
     *  (2, 1, 4, 5) => (2, 1), (4, 5)
     */
   def splitOn[T](items: Iterable[T])(predicate: (T => Boolean)): List[List[T]] = {
-    val splitLists = new ListBuffer[List[T]]()
-    val currentList = new ListBuffer[T]()
-
-    for (item <- items) {
-      if (predicate(item) && currentList.nonEmpty) {
-        splitLists += currentList.toList
-        currentList.clear()
-      }
-      currentList += item
+    val initial = (List[List[T]](), List[T]() )
+    val split = items.foldLeft(initial){
+      case ((allSplit, currentAccumulator), current) =>
+        val isMatch = predicate(current)
+        val newAllSplit = if (isMatch && currentAccumulator.nonEmpty) allSplit :+ currentAccumulator else allSplit
+        val newAccumulator = if (isMatch) List(current) else currentAccumulator :+ current
+        (newAllSplit, newAccumulator)
     }
-
-    splitLists += currentList.toList
-    splitLists.toList
+    split._1 :+ split._2
   }
 
 }
