@@ -51,9 +51,6 @@ class QuestionPublisher(token: String) {
     client.postChatMessage(channel.id, s"${q.number}) ${cat.preface} *${q.text}*", username = Some("kingwilliamsquiz")) // * bolds the text
   }
 
-  private[publisher] def toChannelName(cat: Category) = {
-    val spacer = if (cat.number.toString.length==2) "_" else "__"
-    s"${cat.year}$spacer${cat.number}"
-  }
+  private[publisher] def toChannelName(cat: Category) = f"${cat.year}_${cat.number}%02d"
 
 }
