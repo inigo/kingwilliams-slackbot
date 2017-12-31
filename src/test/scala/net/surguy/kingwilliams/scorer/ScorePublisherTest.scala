@@ -14,4 +14,10 @@ class ScorePublisherTest extends Specification {
     }
   }
 
+  "finding unanswered questions" should {
+    "write a list of unanswered questions" in {
+      publisher.publishUnansweredQuestions() must not(throwAn[Exception])
+    }
+  }
+
 }

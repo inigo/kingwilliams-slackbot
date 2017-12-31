@@ -20,6 +20,10 @@ class Counter(token: String, year: Int) {
      }.sortBy(_.name)
   }
 
+  def unansweredQuestions(): Seq[(Channel, Message)] = {
+    relevantChannels().flatMap(c => relevantMessages(c).filterNot(_.isCorrect).map(m => (c, m)))
+  }
+
   private[scorer] def relevantChannels(): Seq[Channel] = {
     client.listChannels().filter(_.name.startsWith(""+year+"_"))
   }
