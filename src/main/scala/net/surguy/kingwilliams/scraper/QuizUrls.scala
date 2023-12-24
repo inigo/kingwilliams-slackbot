@@ -12,6 +12,7 @@ object QuizUrls {
     , 2015 -> "https://www.theguardian.com/theguardian/2015/dec/24/king-williams-college-quiz-2015"
     , 2016 -> "https://www.theguardian.com/theguardian/2016/dec/22/king-williams-college-quiz-2016"
     , 2017 -> "https://www.theguardian.com/theguardian/2017/dec/21/king-williams-college-quiz-2017"
+    , 2023 -> "https://www.theguardian.com/theguardian/2023/dec/19/the-king-williams-college-quiz-2023"
   )
 
   def getUrl(year: Int): Option[URI] = urls.get(year).map(u => new URI(u))

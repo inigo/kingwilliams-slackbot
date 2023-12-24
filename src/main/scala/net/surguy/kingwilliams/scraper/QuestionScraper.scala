@@ -18,7 +18,7 @@ class QuestionScraper(questionsUrl: URI, year: Int) {
 
   def retrieveCategories(): List[Category] = {
     browser.navigate().to(questionsUrl.toURL)
-    val elements = asScalaBuffer(browser.findElements(By.cssSelector(".content__article-body *")))
+    val elements = asScalaBuffer(browser.findElements(By.cssSelector(".content__article-body *, .article-body-viewer-selector *")))
                       .filter(el =>el.getTagName=="h2" || el.getTagName=="p")
 
     val groups = Splitter.splitOn(elements)(_.getTagName=="h2")

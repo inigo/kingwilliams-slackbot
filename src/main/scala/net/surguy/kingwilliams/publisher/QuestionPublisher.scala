@@ -26,7 +26,7 @@ class QuestionPublisher(token: String) {
   private[publisher] def createCategoryChannel(cat: Category): Option[Channel] = {
     val channelName = toChannelName(cat)
     println("Finding channel with name "+channelName) // Cannot create channels as a bot! Needs to already exist
-    val channelOpt = client.listChannels().find(_.name == channelName)
+    val channelOpt = client.listChannels().find(_.name.getOrElse("") == channelName)
     channelOpt match {
       case Some(channel) =>
         val topic = (cat.number + " " + cat.preface).trim
@@ -36,7 +36,8 @@ class QuestionPublisher(token: String) {
             println("Channel topic already correct")
             None
           case _ =>
-            client.setChannelTopic(channel.id, topic)
+            // @todo Setting channel topic doesn't appear to work any more - getting an "unknown method" back from Slack
+//            client.setChannelTopic(channel.id, topic)
             client.postChatMessage(channel.id, s"-----\n*Section ${cat.number})* ${cat.preface}\n-----", username = Some("kingwilliamsquiz"))
             Some(channel)
         }

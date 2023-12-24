@@ -16,7 +16,7 @@ class Counter(token: String, year: Int) {
   def channelStats(): Seq[ChannelStats] = {
      relevantChannels().map{ c =>
        val score = relevantMessages(c).map(m => if (m.isCorrect) 1 else 0).sum
-       ChannelStats(c.name, score)
+       ChannelStats(c.name.getOrElse(throw new IllegalStateException(s"Channel ${c} did not have name")), score)
      }.sortBy(_.name)
   }
 
@@ -25,7 +25,7 @@ class Counter(token: String, year: Int) {
   }
 
   private[scorer] def relevantChannels(): Seq[Channel] = {
-    client.listChannels().filter(_.name.startsWith(""+year+"_"))
+    client.listChannels().filter(_.name.get.startsWith(""+year+"_"))
   }
 
   private[scorer] def relevantMessages(c: Channel): Seq[Message] = {
